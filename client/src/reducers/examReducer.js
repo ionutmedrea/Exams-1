@@ -1,5 +1,5 @@
 import initialState from "./initialState";
-import {EXAMS_FETCH_FAILURE, FETCH_EXAMS} from "../actions/types";
+import {EXAMS_FETCH_FAILURE, FETCH_EXAMS} from "../actions/examTypes";
 
 
 export default function (state = initialState.exams, action) {
