@@ -1,6 +1,6 @@
 *<h1>TO DO</h1>*
 
- <img src="https://www.dropbox.com/s/2gm7nq8yj95yosz/Untitled%20Diagram.jpg?dl=1">
+<img src="Untitled Diagram.jpg">
 
 *<h3 style="font-weight:bold;">Main page / Home page</h3>*
 <p>The main page should be the login page. In case the user does not have an account he'll have the option to register.</p>
