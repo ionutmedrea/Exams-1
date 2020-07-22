@@ -1,7 +1,10 @@
 export default {
     exams: [],
     exam: {},
-    filteredExams: {},
+    filteredExams: [],
+    users: [],
+    user: {},
+    filteredUsers:[],
     error: null,
     loading: false,
 }
