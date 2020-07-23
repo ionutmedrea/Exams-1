@@ -3,7 +3,7 @@ import axios from "axios"
 import {
     FETCH_EXAMS,
     EXAMS_FETCH_FAILURE
-} from "./types";
+} from "./examTypes";
 
 function getExamsUrl() {
     return "URL_TO_GET_API_ENDPOINT";
