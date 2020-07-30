@@ -35,14 +35,11 @@ public class UserController {
 
         return userRepository.findUserName(name)
                 .orElseThrow(() ->{
-                   logger.error("User with name: {} not found",name);
-                   return new ResponseStatusException(
-                           HttpStatus.NOT_FOUND,
-                           String.format("User with name: %s not found",name)
-                   );
+                    logger.error("User with name: {} not found",name);
+                    return new ResponseStatusException(
+                            HttpStatus.NOT_FOUND,
+                            String.format("User with name: %s not found",name)
+                    );
                 });
     }
-
-
-
 }
