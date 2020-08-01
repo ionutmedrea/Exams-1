@@ -7,27 +7,23 @@ import team.nine.Exams.models.Exam;
 import team.nine.Exams.repositories.ExamRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ExamController {
-    private final ExamRepository repository;
 
     @Autowired
-    public ExamController(ExamRepository repository){
-        this.repository=repository;
-    }
+    private ExamRepository repository;
 
     //findAll method
-    @GetMapping("/exam")
+    @GetMapping("/exams")
     private List<Exam> getAll(){
         return repository.findAll();
     }
 
     //new exam method
-    @PostMapping("/exam")
+    @PostMapping("/exams")
     private Exam newExam(@RequestBody Exam newExam){
         return repository.save(newExam);
     }
@@ -59,7 +55,6 @@ public class ExamController {
 
         return repository.findById(id)
                 .map(exam -> {
-                    exam.setAcademicYear(newExam.getAcademicYear());
                     exam.setSession(newExam.getSession());
                     exam.setYearOfStudy(newExam.getYearOfStudy());
                     exam.setFaculty(newExam.getFaculty());
