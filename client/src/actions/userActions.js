@@ -10,7 +10,7 @@ function getLastName(name) {
 }
 
 function getUsersUrl() {
-    return "https://gorest.co.in/public-api/users";
+    return "http://localhost:8080/api/users";
 }
 
 function getUserUrl(name) {
@@ -23,14 +23,11 @@ function getUserUrl(name) {
 export const fetchUsers = () => async dispatch => {
     // The token is hardcored for now
     try {
-        const response = await axios.get(getUsersUrl(), {
-            headers:{
-                'authorization' : 'Bearer e5TMkzW24XHGg66CsXe_twDnguc_opxpBobr'
-            }
-        });
+        const response = await axios.get(getUsersUrl());
+        console.log(response);
         return await dispatch({
             type:userTypes.FETCH_USERS,
-            payload: response.data.result
+            payload: response.data
         });
     } catch (e) {
         console.log(e);

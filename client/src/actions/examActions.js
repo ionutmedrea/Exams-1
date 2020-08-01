@@ -6,7 +6,7 @@ import {
 } from "./examTypes";
 
 function getExamsUrl() {
-    return "URL_TO_GET_API_ENDPOINT";
+    return "http://localhost:8080/api/exams";
 }
 
 function examsFetchFailure(error) {
@@ -21,7 +21,7 @@ export const fetchExams = () => async dispatch => {
       const response = await axios.get(getExamsUrl());
       return await dispatch({
           type: FETCH_EXAMS,
-          payload: response
+          payload: response.data
       });
   }  
   catch (error) {
