@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import team.nine.Exams.models.Exam;
 import team.nine.Exams.models.User;
 import team.nine.Exams.repositories.UserRepository;
 
@@ -40,6 +41,23 @@ public class UserController {
                             HttpStatus.NOT_FOUND,
                             String.format("User with name: %s not found",name)
                     );
+                });
+    }
+    //updating an exam using the id
+    @PutMapping("/user/{id}")
+    private User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
+
+        return userRepository.findById(Math.toIntExact(id))
+                .map(user -> {
+                    user.setUserName(newUser.getUserName());
+                    user.setPassword(newUser.getPassword());
+                    user.setEmail(newUser.getEmail());
+                    user.setRole(newUser.getRole());
+                    return userRepository.save(user);
+                })
+                .orElseGet(() -> {
+                    newUser.setId(id);
+                    return userRepository.save(newUser);
                 });
     }
 }
