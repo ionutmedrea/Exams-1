@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Exams from "./containers/ExamsContainer/Exams";
 import ExamDetail from "./containers/ExamDetailContainer/ExamDetail";
+import Users from "./containers/UsersContainer/Users";
 
 function App() {
     return (
@@ -32,7 +33,11 @@ function App() {
                                         <p>Exam</p>
                                     </Link>
                                 </li>
-
+                                <li>
+                                    <Link to="/users">
+                                        <p>Users</p>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </Route>
@@ -49,6 +54,11 @@ function App() {
                     <Route exact path="/exam/:id">
                         <div>
                             <ExamDetail/>
+                        </div>
+                    </Route>
+                    <Route exact path="/users">
+                        <div>
+                            <Users/>
                         </div>
                     </Route>
                 </Switch>
