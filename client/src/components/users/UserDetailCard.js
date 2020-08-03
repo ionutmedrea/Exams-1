@@ -9,11 +9,11 @@ import {
     UserInfoSection
 } from "./styledCards";
 
-function UserDetailCard({username}) {
+function UserDetailCard({username, user}) {
 return(
     <DetailCardWrapper>
         <DetailImageSection>
-            <ImgThumbnail
+            <ImgThumbnail detail
                 src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=681&q=80"
                 alt=""/>
             <UserInfoSection>
@@ -24,8 +24,8 @@ return(
         <InfoDetailWrapper>
             <InfoDetailSection>
                 <div>
-                <p>Info section 1</p>
-                <p>Info section 1</p>
+                <p>email:{user.email}</p>
+                <p>role:{user.role}</p>
                 </div>
                 <div>
                 <p>Info section 1</p>
@@ -38,8 +38,8 @@ return(
             </InfoDetailSection>
             <InfoDetailSection>
                 <div>
-                    <p>Info section 2</p>
-                    <p>Info section 2</p>
+                    <p>username:{user.userName}</p>
+                    <p>password:{user.password}</p>
                 </div>
                 <div>
                     <p>Info section 2</p>

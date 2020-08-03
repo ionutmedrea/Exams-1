@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../shared/Spinner";
 import {fetchUsers} from "../../actions/userActions";
 import UserCard from "../../components/users/UserCard";
-import {UserListStyled} from "./UserList.styled";
+import {SearchBarWrapper, UserContainer, UserListStyled} from "./UserList.styled";
+import UsersSearchForm from "./UsersSearchForm";
 
 function Exams() {
 
@@ -16,9 +17,11 @@ function Exams() {
     }, []);
 
     return (
-        <div>
-            <p>Search</p>
-            <p>filter</p>
+        <UserContainer>
+            <SearchBarWrapper>
+                <UsersSearchForm/>
+                <p>filter by</p>
+            </SearchBarWrapper>
         <UserListStyled>
             {users ? users.map(user => <UserCard
                 key={user.uid}
@@ -28,7 +31,7 @@ function Exams() {
                 email={user.email}
                 role={user.role}/>) : <Spinner/>}
         </UserListStyled>
-        </div>
+        </UserContainer>
     );
 }
 

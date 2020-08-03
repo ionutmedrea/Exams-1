@@ -24,4 +24,6 @@ export const userTypes = {
 
     UPDATE_USER: "UPDATE_USER",
     UPDATE_USER_FAILURE: "UPDATE_USER_FAILURE",
+
+    FILTER_USERS: "FILTER_USERS"
 };

@@ -10,6 +10,7 @@ import Exams from "./containers/ExamsContainer/Exams";
 import ExamDetail from "./containers/ExamDetailContainer/ExamDetail";
 import Users from "./containers/UsersContainer/Users";
 import UserDetail from "./containers/UserDetailContainer/UserDetail";
+import Login from "./components/Login";
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
                     </Route>
                     <Route exact path="/home">
                         <div>
-                            <p>Home Component</p>
+                            <Login/>
                         </div>
                     </Route>
                     <Route exact path="/exams">
