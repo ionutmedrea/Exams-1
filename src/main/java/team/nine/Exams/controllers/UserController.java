@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import team.nine.Exams.models.Exam;
+import team.nine.Exams.exceptions.EmailAlreadyTakenException;
+import team.nine.Exams.exceptions.UsernameAlreadyTakenException;
 import team.nine.Exams.models.User;
 import team.nine.Exams.repositories.UserRepository;
+import team.nine.Exams.services.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -43,10 +49,35 @@ public class UserController {
                     );
                 });
     }
-    //updating an exam using the id
-    @PutMapping("/user/{id}")
-    private User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
+
+    @PostMapping("/users/register")
+    public Optional<User> registerUser(@RequestBody User user){
+        logger.info("Registering new user request {}",user.toString());
+
+        try {
+            userService.registerUser(
+                    user.getUserName(),
+                    user.getPassword(),
+                    user.getEmail()
+            );
+        }
+        catch (EmailAlreadyTakenException exception){
+            logger.error("User Email {} already exists", user.getEmail());
+            throw new ResponseStatusException(HttpStatus.FOUND, "User email found", exception);
+        }
+        catch (UsernameAlreadyTakenException exception){
+            logger.error("Username {} already exists", user.getUserName());
+            throw new ResponseStatusException(HttpStatus.FOUND, "Username found", exception);
+        }
+        return userRepository.findUserName(user.getUserName());
+    }
+
+
+
+    // Updating user
+    @PutMapping("/user/{id}")
+    public User updateUser(@RequestBody User newUser, @PathVariable Long id) {
         return userRepository.findById(Math.toIntExact(id))
                 .map(user -> {
                     user.setUserName(newUser.getUserName());
