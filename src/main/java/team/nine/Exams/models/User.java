@@ -30,6 +30,9 @@ public class User {
     @Column(name= "role")
     private String role;
 
+    public void setId(Long id) {
+    }
+
     // private String token
     // or a list of tokens not yet implemented
 }
