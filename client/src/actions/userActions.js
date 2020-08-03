@@ -14,6 +14,10 @@ function getUsersUrl() {
     return "http://localhost:8080/api/users";
 }
 
+function getRegisterUrl() {
+    return "http://localhost:8080/api/users/register"
+}
+
 function getUserUrl(name) {
     return `http://localhost:8080/api/users/${name}`
 }
@@ -72,18 +76,15 @@ export const fetchUser = (name) => async dispatch => {
 
 export const registerUser = (user) => async dispatch => {
     try {
-        const response = await axios.post(getUsersUrl(), {
-            headers: {
-                'authorization': 'Bearer e5TMkzW24XHGg66CsXe_twDnguc_opxpBobr'
-            },
-            body: JSON.stringify(user)
-        });
+        console.log("before post",user);
+        const response = await axios.post(getRegisterUrl(),user);
+        console.log("Response",response);
         return await dispatch({
-            type: userTypes.FETCH_USER,
-            payload: response.data
+            type: userTypes.REGISTER,
+            payload: response
         });
     } catch (e) {
-        console.log(e);
+        console.log(e.response);
     }
 };
 
