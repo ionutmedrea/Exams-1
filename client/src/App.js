@@ -9,6 +9,8 @@ import {
 import Exams from "./containers/ExamsContainer/Exams";
 import ExamDetail from "./containers/ExamDetailContainer/ExamDetail";
 import Users from "./containers/UsersContainer/Users";
+import UserDetail from "./containers/UserDetailContainer/UserDetail";
+
 
 function App() {
     return (
@@ -59,6 +61,11 @@ function App() {
                     <Route exact path="/users">
                         <div>
                             <Users/>
+                        </div>
+                    </Route>
+                    <Route exact path="/users/:username">
+                        <div>
+                            <UserDetail/>
                         </div>
                     </Route>
                 </Switch>

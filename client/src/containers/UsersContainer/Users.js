@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../shared/Spinner";
 import {fetchUsers} from "../../actions/userActions";
-import UserCard from "../../components/UserCard";
+import UserCard from "../../components/users/UserCard";
+import {UserListStyled} from "./UserList.styled";
 
 function Exams() {
 
@@ -16,14 +17,17 @@ function Exams() {
 
     return (
         <div>
-            <p>Fetch All</p>
+            <p>Search</p>
+            <p>filter</p>
+        <UserListStyled>
             {users ? users.map(user => <UserCard
                 key={user.uid}
                 id={user.uid}
-                username={user.username}
+                username={user.userName}
                 password={user.password}
                 email={user.email}
                 role={user.role}/>) : <Spinner/>}
+        </UserListStyled>
         </div>
     );
 }
