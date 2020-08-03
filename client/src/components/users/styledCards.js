@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 export const ImgThumbnail = styled.img`
   width: 150px;
   height: 150px;
-  border: 2px solid rgba(255,255,255,0.6);
-  border-radius: 50%;
+  border-radius: ${props => props.detail ? "50%": "50%"};
+  border: ${props => props.detail ? "5px solid rgba(255,227,107,1)" : "2px solid rgba(255,255,255,0.6)"};
 `;
 
 export const InfoSection = styled.div`
@@ -48,17 +48,21 @@ export const DetailCardWrapper = styled.div`
   border: 2px solid black;
   display: flex;
   flex-direction: column;
-  margin: 10%;
+  margin: 5%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.7) 0%, rgba(255,243,190,0.7) 46%, rgba(255,227,107,0.7) 100%);
 `;
 
 export const DetailImageSection = styled.div`
   display: inline-flex;
-  
+  border-bottom: 1px solid black;
+  margin: 2%;
 `;
 
 export const UserInfoSection = styled.div`
   display: flex;
   flex-direction: column;
+    margin: 2%;
+
 `;
 
 export const InfoDetailSection = styled.div`
@@ -69,9 +73,12 @@ export const InfoDetailSection = styled.div`
 export const InfoDetailWrapper = styled.div`
 display: inline-flex;
 justify-content: space-evenly;
+margin: 2%;
 `;
 
 export const ButtonSection = styled.div`
 display: inline-flex;
 justify-content: space-evenly;
+  margin: 2%;
+
 `;
