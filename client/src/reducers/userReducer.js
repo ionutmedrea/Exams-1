@@ -16,8 +16,11 @@ export default function (state = initialState.exams, action) {
                 ...state,
                 user: action.payload
             };
-
-
+        case userTypes.REGISTER:
+            console.log("REGISTER USER TEST: ",action.payload);
+            return{
+                ...state,
+            };
         default:
             return state;
     }

@@ -11,6 +11,7 @@ import ExamDetail from "./containers/ExamDetailContainer/ExamDetail";
 import Users from "./containers/UsersContainer/Users";
 import UserDetail from "./containers/UserDetailContainer/UserDetail";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 
 function App() {
@@ -41,6 +42,12 @@ function App() {
                                         <p>Users</p>
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to="/register">
+                                        <p>Register</p>
+                                    </Link>
+                                </li>
+
                             </ul>
                         </div>
                     </Route>
@@ -67,6 +74,11 @@ function App() {
                     <Route exact path="/users/:username">
                         <div>
                             <UserDetail/>
+                        </div>
+                    </Route>
+                    <Route exact path="/register">
+                        <div>
+                            <Register/>
                         </div>
                     </Route>
                 </Switch>
