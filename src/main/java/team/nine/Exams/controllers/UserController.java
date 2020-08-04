@@ -57,7 +57,7 @@ public class UserController {
 
         try {
             userService.registerUser(
-                    user.getUserName(),
+                    user.getUsername(),
                     user.getPassword(),
                     user.getEmail()
             );
@@ -67,10 +67,10 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.FOUND, "User email found", exception);
         }
         catch (UsernameAlreadyTakenException exception){
-            logger.error("Username {} already exists", user.getUserName());
+            logger.error("Username {} already exists", user.getUsername());
             throw new ResponseStatusException(HttpStatus.FOUND, "Username found", exception);
         }
-        return userRepository.findUserName(user.getUserName());
+        return userRepository.findUserName(user.getUsername());
     }
 
 
@@ -80,7 +80,7 @@ public class UserController {
     public User updateUser(@RequestBody User newUser, @PathVariable Long id) {
         return userRepository.findById(Math.toIntExact(id))
                 .map(user -> {
-                    user.setUserName(newUser.getUserName());
+                    user.setUsername(newUser.getUsername());
                     user.setPassword(newUser.getPassword());
                     user.setEmail(newUser.getEmail());
                     user.setRole(newUser.getRole());

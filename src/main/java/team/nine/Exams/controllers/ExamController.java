@@ -61,7 +61,7 @@ public class ExamController {
                     exam.setDomain(newExam.getDomain());
                     exam.setCourse(newExam.getCourse());
                     exam.setTeacher(newExam.getTeacher());
-                    exam.setNumberOfSeats(newExam.getNumberOfSeats());
+
                     return repository.save(exam);
                 })
                 .orElseGet(() -> {
