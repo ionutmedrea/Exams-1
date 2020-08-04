@@ -21,6 +21,12 @@ export default function (state = initialState.exams, action) {
             return{
                 ...state,
             };
+            case userTypes.LOGIN:
+            console.log("LOGIN USER TEST: ",action.payload);
+            return{
+                ...state,
+            };
+
         default:
             return state;
     }
