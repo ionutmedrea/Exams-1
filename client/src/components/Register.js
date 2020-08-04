@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {RegisterWrapper} from "./Auth.styled";
+import {RegisterWrapper, Wrapper} from "./Auth.styled";
 import {registerUser} from "../actions/userActions";
 import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 
 
 function Register() {
@@ -32,7 +33,7 @@ function Register() {
     }
 
     return (
-        <RegisterWrapper>
+        <Wrapper>
             <div>
                 <p>Registration</p>
             </div>
@@ -64,9 +65,9 @@ function Register() {
                 </form>
             </div>
             <div>
-                <p>Already have an account? : Sign In</p>
+                <p>Already have an account? : <Link to={"/login"}>Sign In</Link></p>
             </div>
-        </RegisterWrapper>
+        </Wrapper>
     );
 }
 
