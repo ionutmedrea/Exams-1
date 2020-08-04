@@ -7,6 +7,8 @@ import team.nine.Exams.exceptions.UsernameAlreadyTakenException;
 import team.nine.Exams.models.User;
 import team.nine.Exams.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -33,5 +35,18 @@ public class UserService {
         else{
             throw new UsernameAlreadyTakenException("User Taken");
         }
+    }
+
+    public void assignToken(String username, String token){
+        User user;
+        if (userRepository.findUserName(username).isPresent()){
+            user = userRepository.findUserName(username).get();
+            user.setToken(token);
+            userRepository.save(user);
+        }
+    }
+
+    public Optional<User> findByToken(String token){
+        return userRepository.findByToken(token);
     }
 }
