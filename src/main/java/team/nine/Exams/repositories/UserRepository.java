@@ -1,6 +1,5 @@
 package team.nine.Exams.repositories;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import team.nine.Exams.models.User;
@@ -17,6 +16,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query(value = "SELECT u from User u WHERE u.role = ?1")
     Optional<User> findByRole(String role);
 
+    @Query(value = "SELECT u from User u WHERE u.userName = ?1")
+    User findByUsername(String userName);
 
 
     boolean existsByUserName(String username);
@@ -26,5 +27,4 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     boolean existsByRole(String role);
 
 
-    User findByUsername(String userName);
 }
