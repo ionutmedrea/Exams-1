@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import team.nine.Exams.exceptions.EmailAlreadyTakenException;
 import team.nine.Exams.exceptions.UsernameAlreadyTakenException;
 import team.nine.Exams.models.User;
-import team.nine.Exams.models.auth.AuthRequest;
 import team.nine.Exams.repositories.UserRepository;
 import team.nine.Exams.services.UserService;
 
@@ -78,34 +76,35 @@ public class UserController {
         return userRepository.findUserName(user.getUserName());
     }
 
-    @PostMapping("/authenticate")
-    public Optional<User> authenticateUser(@RequestBody AuthRequest authRequest){
-        logger.info("Auth request initialized");
-
-        try{
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            authRequest.getUsername(),
-                            authRequest.getPassword()
-                    )
-            );
-        }catch (Exception exception){
-            logger.error("Invalid username or password");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid username or password",exception);
-        }
-
-
-        String token = jwtUtil.generateToken(authRequest.getUsername());
-        userService.assignToken(authRequest.getUsername(), token);
-        return userService.findByToken(token);
-    }
+//    @PostMapping("/authenticate")
+//    public Optional<User> authenticateUser(@RequestBody AuthRequest authRequest){
+//        logger.info("Auth request initialized");
+//
+//        try{
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(
+//                            authRequest.getUsername(),
+//                            authRequest.getPassword()
+//                    )
+//            );
+//        }catch (Exception exception){
+//            logger.error("Invalid username or password");
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid username or password",exception);
+//        }
+//
+//
+//        String token = jwtUtil.generateToken(authRequest.getUsername());
+//        userService.assignToken(authRequest.getUsername(), token);
+//        return userService.findByToken(token);
+//    }
 
 
 
     // Updating user
-    @PutMapping("/user/{id}")
-    public User updateUser(@RequestBody User newUser, @PathVariable Long id) {
-        return userRepository.findById(Math.toIntExact(id))
+    @PutMapping("/users/{id}")
+    public User updateUser(@RequestBody User newUser, @PathVariable(name="id") Long id) {
+        logger.info("Updating user request {}",newUser.toString());
+        return userRepository.findById(id)
                 .map(user -> {
                     user.setUserName(newUser.getUserName());
                     user.setPassword(newUser.getPassword());
@@ -117,5 +116,11 @@ public class UserController {
                     newUser.setUid(id);
                     return userRepository.save(newUser);
                 });
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable(name="id") Long id){
+        logger.info("Deleting user request {}",userRepository.findById(id).toString());
+        userRepository.deleteById(id);
     }
 }
