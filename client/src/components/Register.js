@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {RegisterWrapper, Wrapper} from "./Auth.styled";
+import React, {useState} from "react";
+import {Wrapper} from "./Auth.styled";
 import {registerUser} from "../actions/userActions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
