@@ -107,3 +107,33 @@ export const loginUser = (user) => async dispatch => {
 };
 
 
+export const startEditing = () => dispatch =>{
+    return dispatch({
+        type: userTypes.EDITING_ON,
+        payload: true});
+};
+
+export const stopEditing = () => dispatch =>{
+    return dispatch({
+        type: userTypes.EDITING_OFF,
+        payload: false});
+};
+
+
+
+export const updateUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const urlToPUT = getUsersUrl() + `/${user.uid}`;
+        const response = await axios.put(urlToPUT, user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.UPDATE_USER,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+    }
+};
+
+
