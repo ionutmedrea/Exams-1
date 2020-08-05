@@ -22,7 +22,7 @@ public class UserService {
         if(!usernameAlreadyTaken){
             if(!emailAlreadyTaken){
                 User newUser = new User();
-                newUser.setUserName(username);
+                newUser.setUsername(username);
                 newUser.setEmail(email);
                 newUser.setPassword(password);
                 newUser.setRole("student");

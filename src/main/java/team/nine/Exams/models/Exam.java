@@ -30,7 +30,6 @@ public class Exam {
     private String course;
     @Column(name= "teacher")
     private String teacher;
-    @Column(name= "numberOfSeats")
-    private int numberOfSeats;
+
 
 }
