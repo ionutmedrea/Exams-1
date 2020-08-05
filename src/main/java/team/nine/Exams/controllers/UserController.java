@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import team.nine.Exams.exceptions.EmailAlreadyTakenException;
@@ -28,6 +29,8 @@ public class UserController {
     private UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private AuthenticationManager authenticationManager;
 
 
     @GetMapping("/users")
@@ -73,12 +76,35 @@ public class UserController {
         return userRepository.findUserName(user.getUsername());
     }
 
+//    @PostMapping("/authenticate")
+//    public Optional<User> authenticateUser(@RequestBody AuthRequest authRequest){
+//        logger.info("Auth request initialized");
+//
+//        try{
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(
+//                            authRequest.getUsername(),
+//                            authRequest.getPassword()
+//                    )
+//            );
+//        }catch (Exception exception){
+//            logger.error("Invalid username or password");
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid username or password",exception);
+//        }
+//
+//
+//        String token = jwtUtil.generateToken(authRequest.getUsername());
+//        userService.assignToken(authRequest.getUsername(), token);
+//        return userService.findByToken(token);
+//    }
+
 
 
     // Updating user
-    @PutMapping("/user/{id}")
-    public User updateUser(@RequestBody User newUser, @PathVariable Long id) {
-        return userRepository.findById(Math.toIntExact(id))
+    @PutMapping("/users/{id}")
+    public User updateUser(@RequestBody User newUser, @PathVariable(name="id") Long id) {
+        logger.info("Updating user request {}",newUser.toString());
+        return userRepository.findById(id)
                 .map(user -> {
                     user.setUsername(newUser.getUsername());
                     user.setPassword(newUser.getPassword());
@@ -87,8 +113,14 @@ public class UserController {
                     return userRepository.save(user);
                 })
                 .orElseGet(() -> {
-                    newUser.setId(id);
+                    newUser.setUid(id);
                     return userRepository.save(newUser);
                 });
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable(name="id") Long id){
+        logger.info("Deleting user request {}",userRepository.findById(id).toString());
+        userRepository.deleteById(id);
     }
 }

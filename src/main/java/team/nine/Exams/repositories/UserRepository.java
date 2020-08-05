@@ -6,7 +6,7 @@ import team.nine.Exams.models.User;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u from User u WHERE u.userName = ?1")
     Optional<User> findUserName(String username);
 
@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query(value = "SELECT u from User u WHERE u.userName = ?1")
     User findByUsername(String userName);
-
+  
 
     boolean existsByUserName(String username);
 

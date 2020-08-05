@@ -18,6 +18,10 @@ function getRegisterUrl() {
     return "http://localhost:8080/api/users/register"
 }
 
+function getLoginrUrl() {
+    return "http://localhost:8080/api/users/login"
+}
+
 function getUserUrl(name) {
     return `http://localhost:8080/api/users/${name}`
 }
@@ -76,11 +80,55 @@ export const fetchUser = (name) => async dispatch => {
 
 export const registerUser = (user) => async dispatch => {
     try {
-        console.log("before post",user);
-        const response = await axios.post(getRegisterUrl(),user);
-        console.log("Response",response);
+        console.log("before post", user);
+        const response = await axios.post(getRegisterUrl(), user);
+        console.log("Response", response);
         return await dispatch({
             type: userTypes.REGISTER,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+    }
+};
+
+export const loginUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const response = await axios.post(getLoginrUrl(), user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.LOGIN,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+    }
+};
+
+
+export const startEditing = () => dispatch =>{
+    return dispatch({
+        type: userTypes.EDITING_ON,
+        payload: true});
+};
+
+export const stopEditing = () => dispatch =>{
+    return dispatch({
+        type: userTypes.EDITING_OFF,
+        payload: false});
+};
+
+
+
+export const updateUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const urlToPUT = getUsersUrl() + `/${user.uid}`;
+        const response = await axios.put(urlToPUT, user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.UPDATE_USER,
             payload: response
         });
     } catch (e) {
