@@ -1,34 +1,29 @@
-import React, {useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import {} from "./Auth.styled";
-import {useDispatch} from "react-redux";
-import {registerUser} from "../actions/userActions";
+import {useDispatch, useSelector} from "react-redux";
 import {Wrapper} from "./Auth.styled";
+import {loginUser} from "../actions/userActions";
 
 function Login() {
 
     const dispatch = useDispatch();
 
-    const [user, setUser] = useState({
-        password: "",
-        userName: "",
-    });
+   let editedUser = useSelector(state => state.users.editedUser);
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        if (user.userName &&  user.password) {
-            dispatch(registerUser(user));
+        if (editedUser.userName &&  editedUser.password) {
+            dispatch(loginUser(editedUser.userName, editedUser.password));
         }
     }
 
     function handleChange(event) {
         const {name, value} = event.target;
-        setUser(user => ({
-                ...user,
-                [name]: value
-            })
-        );
+        editedUser = {
+            ...editedUser,
+            [name]: value
+        };
     }
 
     return (
@@ -40,18 +35,18 @@ function Login() {
                <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column"}}>
                    <label>Username</label>
                    <input type="text"
-                          placeholder="Username"
+                          defaultValue={editedUser.userName}
                           name="userName"
                           style={{textAlign: "center"}}
                           onChange={handleChange}/>
                    <label>Password</label>
-                   <input type="text"
-                          placeholder="Password"
+                   <input type="password"
+                          autoComplete="on"
                           name="password"
                           style={{textAlign: "center"}}
                           onChange={handleChange}/>
                    <hr/>
-                   <button onClick={() => console.log("I Logged in and sent: ", user)} type="submit">Log in</button>
+                   <button onClick={() => console.log("I Logged in and sent: ", editedUser)} type="submit">Log in</button>
                </form>
            </div>
            <div>
