@@ -12,6 +12,7 @@ import Users from "./containers/UsersContainer/Users";
 import UserDetail from "./containers/UserDetailContainer/UserDetail";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ExamAddForm from "./components/exams/ExamAddForm";
 
 
 function App() {
@@ -33,11 +34,6 @@ function App() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/exam/id">
-                                        <p>Exam</p>
-                                    </Link>
-                                </li>
-                                <li>
                                     <Link to="/users">
                                         <p>Users</p>
                                     </Link>
@@ -47,7 +43,6 @@ function App() {
                                         <p>Register</p>
                                     </Link>
                                 </li>
-
                             </ul>
                         </div>
                     </Route>
@@ -61,7 +56,7 @@ function App() {
                             <Exams/>
                         </div>
                     </Route>
-                    <Route exact path="/exam/:id">
+                    <Route exact path="/exams/:id">
                         <div>
                             <ExamDetail/>
                         </div>
@@ -84,6 +79,11 @@ function App() {
                     <Route exact path="/login">
                         <div>
                             <Login/>
+                        </div>
+                    </Route>
+                    <Route exact path="/add">
+                        <div>
+                            <ExamAddForm/>
                         </div>
                     </Route>
 
