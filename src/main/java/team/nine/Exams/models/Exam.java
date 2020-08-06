@@ -31,5 +31,4 @@ public class Exam {
     @Column(name= "teacher")
     private String teacher;
 
-
 }

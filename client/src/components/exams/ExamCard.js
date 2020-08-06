@@ -1,24 +1,25 @@
 import React from "react";
 import "./styleExamCard.css";
+import {ExamCardStyled, ListItemStyled, ListStyled} from "./exam.styled";
 
-function ExamCard({course, faculty, yearOfStudy, teacher}) {
+function ExamCard({course, id, faculty, yearOfStudy, teacher}) {
     return(
-        <div className="card">
-            <ul>
-                <li className="course">
+        <ExamCardStyled to={`/exams/${id}`}>
+            <ListStyled>
+                <ListItemStyled important className="course">
                     Course:{course}
-                </li>
-                <li>
+                </ListItemStyled>
+                <ListItemStyled>
                     Faculty:{faculty}
-                </li>
-                <li>
+                </ListItemStyled>
+                <ListItemStyled>
                     Year of Study:{yearOfStudy}
-                </li>
-                <li>
+                </ListItemStyled>
+                <ListItemStyled>
                     Teacher:{teacher}
-                </li>
-            </ul>
-        </div>
+                </ListItemStyled>
+            </ListStyled>
+        </ExamCardStyled>
     );
 }
 

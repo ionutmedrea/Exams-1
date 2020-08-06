@@ -26,5 +26,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByRole(String role);
 
-
 }

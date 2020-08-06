@@ -1,4 +1,5 @@
 export const userTypes = {
+    // Register ~= add user
     REGISTER:  "REGISTER",
     REGISTER_FAILURE: "REGISTER_FAILURE",
 
@@ -12,9 +13,6 @@ export const userTypes = {
 
     FETCH_USER: "FETCH_USER",
     FETCH_USER_FAILURE: "FETCH_USER_FAILURE",
-
-    DELETE_USERS: "DELETE_USERS",
-    DELETE_USERS_FAILURE: "DELETE_USERS_FAILURE",
 
     DELETE_USER: "DELETE_USER",
     DELETE_USER_FAILURE: "DELETE_USER_FAILURE",

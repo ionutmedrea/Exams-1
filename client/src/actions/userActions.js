@@ -26,8 +26,51 @@ function getUserUrl(name) {
     return `http://localhost:8080/api/users/${name}`
 }
 
+
+function fetchUsersFailed(e) {
+    return {
+        type: userTypes.FETCH_USERS_FAILURE,
+        payload: e
+    }
+}
+
+function fetchUserFailed(e) {
+    return {
+        type: userTypes.FETCH_USER_FAILURE,
+        payload: e
+    }
+}
+
+function registerUserFailed(e) {
+    return {
+        type: userTypes.REGISTER_FAILURE,
+        payload: e
+    }
+}
+
+function updateUserFailed(e) {
+    return {
+        type: userTypes.UPDATE_USER_FAILURE,
+        payload: e
+    }
+}
+
+function deleteUserFailed(e) {
+    return {
+        type: userTypes.DELETE_USER_FAILURE,
+        payload: e
+    }
+}
+
+function loginUserFailed(e) {
+    return {
+        type: userTypes.LOGIN_FAILURE,
+        payload: e
+    }
+}
+
+
 export const fetchUsers = () => async dispatch => {
-    // The token is hardcored for now
     try {
         const response = await axios.get(getUsersUrl());
         console.log(response);
@@ -37,6 +80,7 @@ export const fetchUsers = () => async dispatch => {
         });
     } catch (e) {
         console.log(e);
+        dispatch(fetchUsersFailed(e));
     }
 };
 
@@ -50,6 +94,85 @@ export const fetchUser = (name) => async dispatch => {
         });
     } catch (e) {
         console.log(e);
+        dispatch(fetchUserFailed(e))
+    }
+};
+
+
+export const registerUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const response = await axios.post(getRegisterUrl(), user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.REGISTER,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+        dispatch(registerUserFailed(e))
+    }
+};
+
+export const loginUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const response = await axios.post(getLoginrUrl(), user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.LOGIN,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+        dispatch(loginUserFailed(e))
+    }
+};
+
+
+export const startEditing = () => dispatch => {
+    return dispatch({
+        type: userTypes.EDITING_ON,
+        payload: true
+    });
+};
+
+export const stopEditing = () => dispatch => {
+    return dispatch({
+        type: userTypes.EDITING_OFF,
+        payload: false
+    });
+};
+
+
+export const updateUser = (user) => async dispatch => {
+    try {
+        console.log("before post", user);
+        const urlToPUT = getUsersUrl() + `/${user.uid}`;
+        const response = await axios.put(urlToPUT, user);
+        console.log("Response", response);
+        return await dispatch({
+            type: userTypes.UPDATE_USER,
+            payload: response
+        });
+    } catch (e) {
+        dispatch(updateUserFailed(e));
+        console.log(e.response);
+    }
+};
+
+export const deleteUser = (user) => async dispatch => {
+    try {
+        const urlToDelete = getUsersUrl() + `/${user.uid}`;
+        const response = await axios.delete(urlToDelete);
+
+        return await dispatch({
+            type: userTypes.DELETE_USER,
+            payload: response
+        });
+    } catch (e) {
+        console.log(e.response);
+        dispatch(deleteUserFailed(e));
     }
 };
 
@@ -76,64 +199,3 @@ export const fetchUser = (name) => async dispatch => {
 //     })
 //
 // };
-
-
-export const registerUser = (user) => async dispatch => {
-    try {
-        console.log("before post", user);
-        const response = await axios.post(getRegisterUrl(), user);
-        console.log("Response", response);
-        return await dispatch({
-            type: userTypes.REGISTER,
-            payload: response
-        });
-    } catch (e) {
-        console.log(e.response);
-    }
-};
-
-export const loginUser = (user) => async dispatch => {
-    try {
-        console.log("before post", user);
-        const response = await axios.post(getLoginrUrl(), user);
-        console.log("Response", response);
-        return await dispatch({
-            type: userTypes.LOGIN,
-            payload: response
-        });
-    } catch (e) {
-        console.log(e.response);
-    }
-};
-
-
-export const startEditing = () => dispatch =>{
-    return dispatch({
-        type: userTypes.EDITING_ON,
-        payload: true});
-};
-
-export const stopEditing = () => dispatch =>{
-    return dispatch({
-        type: userTypes.EDITING_OFF,
-        payload: false});
-};
-
-
-
-export const updateUser = (user) => async dispatch => {
-    try {
-        console.log("before post", user);
-        const urlToPUT = getUsersUrl() + `/${user.uid}`;
-        const response = await axios.put(urlToPUT, user);
-        console.log("Response", response);
-        return await dispatch({
-            type: userTypes.UPDATE_USER,
-            payload: response
-        });
-    } catch (e) {
-        console.log(e.response);
-    }
-};
-
-
