@@ -10,7 +10,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUser} from "../../actions/userActions";
 
-function UserDetailEdit({username, user, editMode, stopEdit}) {
+function UserDetailEdit({username, user, editMode, stopEdit, deleteUser}) {
     const dispatch = useDispatch();
 
     let editedUser = useSelector(state => state.users.editedUser);
@@ -20,7 +20,6 @@ function UserDetailEdit({username, user, editMode, stopEdit}) {
 
         if (editedUser.userName && editedUser.email && editedUser.password) {
             dispatch(updateUser(editedUser));
-            // stopEdit();
         }
     }
 
@@ -28,7 +27,7 @@ function UserDetailEdit({username, user, editMode, stopEdit}) {
         const {name, value} = event.target;
         editedUser = {
             ...editedUser,
-            [name] : value
+            [name]: value
         };
     }
 
@@ -48,6 +47,7 @@ function UserDetailEdit({username, user, editMode, stopEdit}) {
             {/*<button onClick={() => editedUser.role = "student"}>Set role</button>*/}
             {/*<button onClick={() => console.log(editedUser)}>Check EditedUser</button>*/}
             {/*<button onClick={() => console.log(user)}>Check User</button>*/}
+            <button onClick={deleteUser}>Delete User</button>
 
             <form onSubmit={handleSubmit}>
                 <div style={{display: "flex", flexDirection: "column"}}>
