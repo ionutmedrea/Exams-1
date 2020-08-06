@@ -47,6 +47,7 @@ export default function (state = initialState.usersObj, action) {
 
         case userTypes.LOGIN:
             console.log("LOGIN USER TEST: ", action.payload);
+            localStorage.setItem("user", JSON.stringify(action.payload));
             return {
                 ...state,
             };
