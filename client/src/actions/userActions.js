@@ -73,8 +73,8 @@ function loginUserFailed(e) {
 
 export const fetchUsers = () => async dispatch => {
     try {
-        const response = await axios.get(getUsersUrl(), {
-            headers: authHeader()
+        const response = await axios.get(getUsersUrl(),{
+            headers:authHeader()
         });
         console.log("Response: ",response);
         return await dispatch({
@@ -89,7 +89,9 @@ export const fetchUsers = () => async dispatch => {
 
 export const fetchUser = (name) => async dispatch => {
     try {
-        const response = await axios.get(getUserUrl(name));
+        const response = await axios.get(getUserUrl(name),{
+            headers:authHeader()
+        });
         console.log(response);
         return await dispatch({
             type: userTypes.FETCH_USER,
@@ -153,7 +155,9 @@ export const updateUser = (user) => async dispatch => {
     try {
         console.log("before post", user);
         const urlToPUT = getUsersUrl() + `/${user.uid}`;
-        const response = await axios.put(urlToPUT, user, authHeader());
+        const response = await axios.put(urlToPUT, user,{
+            headers:authHeader()
+        });
         console.log("Response", response);
         return await dispatch({
             type: userTypes.UPDATE_USER,
@@ -168,7 +172,9 @@ export const updateUser = (user) => async dispatch => {
 export const deleteUser = (user) => async dispatch => {
     try {
         const urlToDelete = getUsersUrl() + `/${user.uid}`;
-        const response = await axios.delete(urlToDelete);
+        const response = await axios.delete(urlToDelete,{
+            headers:authHeader()
+        });
 
         return await dispatch({
             type: userTypes.DELETE_USER,
