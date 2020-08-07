@@ -1,72 +1,55 @@
-import React, {useState} from "react";
-import {Wrapper} from "./Auth.styled";
-import {registerUser} from "../actions/userActions";
-import {useDispatch} from "react-redux";
+import React from "react";
+import {
+    AuthText, ButtonWrapper,
+    FancyButton,
+    FancyForm,
+    FancyInput,
+    FancyLink,
+    InnerWrapper,
+    InputWrapper,
+    Wrapper
+} from "./Auth.styled";
 import {Link} from "react-router-dom";
 
-
-function Register() {
-
-    const dispatch = useDispatch();
-
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-        userName: "",
-    });
-
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        if (user.userName && user.email && user.password) {
-            dispatch(registerUser(user));
-        }
-    }
-
-    function handleChange(event) {
-        const {name, value} = event.target;
-        setUser(user => ({
-                ...user,
-                [name]: value
-            })
-        );
-    }
-
+function Register({handleSubmit, handleChange, user}) {
     return (
-        <Wrapper>
-            <div>
-                <p>Registration</p>
-            </div>
-            <div>
-                <p>Let's get you started</p>
-            </div>
-            <div>
-                <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column"}}>
-                    <label>Username</label>
-                    <input type="text"
-                           placeholder="Username"
-                           name="userName"
-                           style={{textAlign: "center"}}
-                           onChange={handleChange}/>
-                    <label>Password</label>
-                    <input type="text"
-                           placeholder="Password"
-                           name="password"
-                           style={{textAlign: "center"}}
-                           onChange={handleChange}/>
-                    <label>Email</label>
-                    <input type="text"
-                           placeholder="Email"
-                           name="email"
-                           style={{textAlign: "center"}}
-                           onChange={handleChange}/>
-                    <hr/>
-                    <button onClick={() => console.log("I Registered and sent: ", user)} type="submit">Register</button>
-                </form>
-            </div>
-            <div>
-                <p>Already have an account? : <Link to={"/login"}>Sign In</Link></p>
-            </div>
+        <Wrapper REGISTER>
+            <InnerWrapper>
+                <AuthText HEADER>Registration</AuthText>
+                <AuthText>Let's get you started</AuthText>
+                <FancyForm onSubmit={handleSubmit}>
+                    <InputWrapper>
+                        <AuthText>Username</AuthText>
+                        <FancyInput type="text"
+                                    placeholder="Username"
+                                    name="userName"
+                                    style={{textAlign: "center"}}
+                                    onChange={handleChange}/>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <AuthText>Password</AuthText>
+                        <FancyInput type="text"
+                                    placeholder="Password"
+                                    name="password"
+                                    style={{textAlign: "center"}}
+                                    onChange={handleChange}/>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <AuthText>Email</AuthText>
+                        <FancyInput type="text"
+                                    placeholder="Email"
+                                    name="email"
+                                    style={{textAlign: "center"}}
+                                    onChange={handleChange}/>
+                    </InputWrapper>
+                    <ButtonWrapper>
+                        <FancyButton type="submit">
+                            <AuthText BUTTON>Register</AuthText>
+                        </FancyButton>
+                    </ButtonWrapper>
+                </FancyForm>
+                <AuthText>Already have an account? : <FancyLink to={"/login"}>Sign In</FancyLink></AuthText>
+            </InnerWrapper>
         </Wrapper>
     );
 }

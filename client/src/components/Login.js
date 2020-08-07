@@ -1,58 +1,48 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {Wrapper} from "./Auth.styled";
-import {loginUser} from "../actions/userActions";
+import {
+    AuthText,
+    ButtonWrapper,
+    FancyButton, FancyForm,
+    FancyInput,
+    FancyLink,
+    InnerWrapper,
+    InputWrapper,
+    Wrapper
+} from "./Auth.styled";
 
-function Login() {
 
-    const dispatch = useDispatch();
-
-   let editedUser = useSelector(state => state.users.editedUser);
-
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        if (editedUser.userName &&  editedUser.password) {
-            dispatch(loginUser(editedUser.userName, editedUser.password));
-        }
-    }
-
-    function handleChange(event) {
-        const {name, value} = event.target;
-        editedUser = {
-            ...editedUser,
-            [name]: value
-        };
-    }
-
+function Login({handleSubmit, handleChange, editedUser}) {
     return (
-       <Wrapper>
-           <div>
-               <p>Sign In</p>
-           </div>
-           <div>
-               <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column"}}>
-                   <label>Username</label>
-                   <input type="text"
-                          defaultValue={editedUser.userName}
-                          name="userName"
-                          style={{textAlign: "center"}}
-                          onChange={handleChange}/>
-                   <label>Password</label>
-                   <input type="password"
-                          autoComplete="on"
-                          name="password"
-                          style={{textAlign: "center"}}
-                          onChange={handleChange}/>
-                   <hr/>
-                   <button onClick={() => console.log("I Logged in and sent: ", editedUser)} type="submit">Log in</button>
-               </form>
-           </div>
-           <div>
-               <p>Don't have an account? : <Link to={"/register"}>Register</Link></p>
-           </div>
-       </Wrapper>
+        <Wrapper>
+            <InnerWrapper>
+                <AuthText HEADER>Sign In</AuthText>
+                <FancyForm onSubmit={handleSubmit}>
+                    <InputWrapper>
+                        <AuthText>Username</AuthText>
+                        <FancyInput type="text"
+                                    defaultValue={editedUser.userName}
+                                    name="userName"
+                                    style={{textAlign: "center"}}
+                                    onChange={handleChange}/>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <AuthText>Password</AuthText>
+                        <FancyInput type="password"
+                                    autoComplete="on"
+                                    name="password"
+                                    style={{textAlign: "center"}}
+                                    onChange={handleChange}/>
+                    </InputWrapper>
+                    <ButtonWrapper>
+                        <FancyButton type="submit">
+                            <AuthText BUTTON>Log In</AuthText>
+                        </FancyButton>
+                    </ButtonWrapper>
+                </FancyForm>
+                <AuthText>Don't have an account yet? : <FancyLink to={"/register"}>Register</FancyLink></AuthText>
+            </InnerWrapper>
+        </Wrapper>
     );
 }
+
 export default Login;
