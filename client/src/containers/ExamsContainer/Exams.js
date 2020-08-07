@@ -20,11 +20,13 @@ function Exams() {
 
     return (
         <Wrapper>
-            <p>Search</p>
-            <p>Filter</p>
-            <Link to={"/add"}>
-                <button>Add exam</button>
-            </Link>
+            <div>
+                <p style={{padding: 0, margin: 0}}>Search</p>
+                <p style={{padding: 0, margin: 0}}>Filter</p>
+                <Link to={"/add"}>
+                    <button>Add exam</button>
+                </Link>
+            </div>
             <ExamsWrapper>
                 {exams ? exams.map(exam => <ExamCard key={exam.id}
                                                      id={exam.id}

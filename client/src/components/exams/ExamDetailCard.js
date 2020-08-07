@@ -1,9 +1,10 @@
 import React from "react";
+import {ExamDetailWrapper} from "./exam.styled";
 
 function ExamDetailCard({exam,startEdit}) {
-
     return(
-        <div>
+        <ExamDetailWrapper>
+            <div style={{margin:"15%", postition: "relative", backgroundColor: "white"}}>
             <button onClick={startEdit}>Edit</button>
             <p>What the fufu id: {exam.id}</p>
             <p>What the course : {exam.course}</p>
@@ -12,7 +13,8 @@ function ExamDetailCard({exam,startEdit}) {
             <p>What the yearOfStudy : {exam.yearOfStudy}</p>
             <p>What the faculty : {exam.faculty}</p>
             <p>What the domain : {exam.domain}</p>
-        </div>
+            </div>
+        </ExamDetailWrapper>
     );
 }
 export default ExamDetailCard;
