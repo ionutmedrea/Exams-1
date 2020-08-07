@@ -1,5 +1,6 @@
 import axios from "axios"
 import {examsTypes} from "./examTypes";
+import {authHeader} from "../shared/authHeader";
 
 function getExamsUrl() {
     return "http://localhost:8080/api/exams";
@@ -59,7 +60,9 @@ export const stopEditing = () => dispatch =>{
 
 export const fetchExams = () => async dispatch => {
   try{
-      const response = await axios.get(getExamsUrl());
+      const response = await axios.get(getExamsUrl(),{
+          headers:authHeader()
+      });
       return await dispatch({
           type: examsTypes.FETCH_EXAMS,
           payload: response.data
@@ -72,7 +75,9 @@ export const fetchExams = () => async dispatch => {
 
 export const fetchExam = (id) => async dispatch => {
   try {
-      const response = await axios.get(getExamUrl(id));
+      const response = await axios.get(getExamUrl(id),{
+          headers:authHeader()
+      });
 
       return await dispatch({
          type: examsTypes.FETCH_EXAM,
@@ -86,7 +91,9 @@ export const fetchExam = (id) => async dispatch => {
 
 export const addExam = (exam) => async dispatch => {
   try {
-      const response = await axios.post("http://localhost:8080/api/exams",exam);
+      const response = await axios.post("http://localhost:8080/api/exams",exam,{
+          headers:authHeader()
+      });
       return await dispatch({
          type: examsTypes.ADD_EXAM,
          payload: response
@@ -100,7 +107,9 @@ export const addExam = (exam) => async dispatch => {
 
 export const deleteExam = (id) => async dispatch => {
   try {
-      const response = await axios.delete(`http://localhost:8080/api/exams/${id}`);
+      const response = await axios.delete(`http://localhost:8080/api/exams/${id}`,{
+          headers:authHeader()
+      });
 
       return await dispatch({
           type: examsTypes.DELETE_EXAM,
@@ -116,7 +125,9 @@ export const deleteExam = (id) => async dispatch => {
 export const editExam = (exam) => async dispatch => {
     try {
         const urlToPut = "http://localhost:8080/api/exams/" + exam.id;
-        const response = await axios.put(urlToPut,exam);
+        const response = await axios.put(urlToPut,exam,{
+            headers:authHeader()
+        });
 
         return await dispatch({
             type: examsTypes.EDIT_EXAM,

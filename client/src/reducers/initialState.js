@@ -3,7 +3,7 @@ export default {
         exams: [],
         exam: {},
         filteredExams: [],
-        editMode:false,
+        editMode:true,
         editedExam:{
             session:"",
             faculty:"",
@@ -27,6 +27,6 @@ export default {
         filteredUsers:[],
         error: null,
         loading: false,
-        editMode: false,
+        editMode: true,
     },
 }

@@ -4,15 +4,16 @@ import store from "./store/store";
 import {
     Route,
     BrowserRouter as Router,
-    Switch, Link
+    Switch
 } from "react-router-dom";
-import Exams from "./containers/ExamsContainer/Exams";
-import ExamDetail from "./containers/ExamDetailContainer/ExamDetail";
-import Users from "./containers/UsersContainer/Users";
-import UserDetail from "./containers/UserDetailContainer/UserDetail";
-import Login from "./components/Login";
+
 import Register from "./components/Register";
-import ExamAddForm from "./components/exams/ExamAddForm";
+import {PageWrapper} from "./App.styled";
+import StartPage from "./containers/StartPage";
+import DefaultRoutes from "./containers/DefaultRoutes";
+import PageNotFound404 from "./containers/PageNotFound404";
+import LoginContainer from "./containers/LoginContainer";
+import RegisterContainer from "./containers/RegisterContainer";
 
 
 function App() {
@@ -20,73 +21,15 @@ function App() {
         <Provider store={store}>
             <Router>
                 <Switch>
+                    <Route component={PageNotFound404} path="/404NotFound"/>
                     <Route exact path="/">
-                        <div>
-                            <ul>
-                                <li>
-                                    <Link to="/home">
-                                        <p>Home</p>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/exams">
-                                        <p>Exams</p>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/users">
-                                        <p>Users</p>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/register">
-                                        <p>Register</p>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                        <PageWrapper>
+                            <StartPage/>
+                        </PageWrapper>
                     </Route>
-                    <Route exact path="/home">
-                        <div>
-                            <Login/>
-                        </div>
-                    </Route>
-                    <Route exact path="/exams">
-                        <div>
-                            <Exams/>
-                        </div>
-                    </Route>
-                    <Route exact path="/exams/:id">
-                        <div>
-                            <ExamDetail/>
-                        </div>
-                    </Route>
-                    <Route exact path="/users">
-                        <div>
-                            <Users/>
-                        </div>
-                    </Route>
-                    <Route exact path="/users/:username">
-                        <div>
-                            <UserDetail/>
-                        </div>
-                    </Route>
-                    <Route exact path="/register">
-                        <div>
-                            <Register/>
-                        </div>
-                    </Route>
-                    <Route exact path="/login">
-                        <div>
-                            <Login/>
-                        </div>
-                    </Route>
-                    <Route exact path="/add">
-                        <div>
-                            <ExamAddForm/>
-                        </div>
-                    </Route>
-
+                    <Route exact path="/register" component={RegisterContainer}/>
+                    <Route exact path="/login" component={LoginContainer}/>
+                    <Route component={DefaultRoutes}/>
                 </Switch>
             </Router>
         </Provider>

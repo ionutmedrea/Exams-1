@@ -1,10 +1,10 @@
 import {
     ButtonSection, DetailCardWrapper,
-    DetailImageSection,
+    DetailImageSection, FancyButton, FancyForm, FancyInput,
     ImgThumbnail,
     InfoDetailSection,
-    InfoDetailWrapper,
-    UserInfoSection
+    InfoDetailWrapper, InputWrapper,
+    UserInfoSection, UserText
 } from "./styledCards";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -38,56 +38,54 @@ function UserDetailEdit({username, user, editMode, stopEdit, deleteUser}) {
                               src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=681&q=80"
                               alt=""/>
                 <UserInfoSection>
-                    <p>{username}</p>
-                    <p>City Country</p>
+                    <UserText>{username}</UserText>
+                    <UserText>City Country</UserText>
                 </UserInfoSection>
             </DetailImageSection>
-            <button type="button" onClick={() => stopEdit()}>STOP EDIT</button>
-            {/*<button onClick={() => console.log(editMode)}>Check Edit</button>*/}
-            {/*<button onClick={() => editedUser.role = "student"}>Set role</button>*/}
-            {/*<button onClick={() => console.log(editedUser)}>Check EditedUser</button>*/}
-            {/*<button onClick={() => console.log(user)}>Check User</button>*/}
-            <button onClick={deleteUser}>Delete User</button>
-
-            <form onSubmit={handleSubmit}>
-                <div style={{display: "flex", flexDirection: "column"}}>
+            <FancyForm onSubmit={handleSubmit}>
                     <InfoDetailWrapper>
                         <InfoDetailSection>
-                            <label>Email</label>
-                            <input type="text"
-                                   defaultValue={user.email}
-                                   name="email"
-                                   style={{textAlign: "center"}}
-                                   onChange={handleChange}/>
-                            <label>Role</label>
-                            <input type="text"
+                            <InputWrapper>
+                            <UserText>Email</UserText>
+                                <FancyInput type="text"
+                                            defaultValue={user.email}
+                                            name="email"
+                                            style={{textAlign: "center"}}
+                                            onChange={handleChange}/>
+                            </InputWrapper>
+                            <InputWrapper>
+                            <UserText>Role</UserText>
+                            <FancyInput type="text"
                                    defaultValue={user.role}
                                    name="role"
                                    style={{textAlign: "center"}}
                                    onChange={handleChange}/>
+                            </InputWrapper>
                         </InfoDetailSection>
                         <InfoDetailSection>
-                            <label>Username</label>
-                            <input type="text"
-                                   defaultValue={user.userName}
-                                   name="userName"
-                                   style={{textAlign: "center"}}
-                                   onChange={handleChange}/>
-                            <label>Password</label>
-                            <input type="text"
-                                   defaultValue={user.password}
-                                   name="password"
-                                   style={{textAlign: "center"}}
-                                   onChange={handleChange}/>
+                            <InputWrapper>
+                                <UserText>Username</UserText>
+                                <FancyInput type="text"
+                                            defaultValue={user.userName}
+                                            name="userName"
+                                            style={{textAlign: "center"}}
+                                            onChange={handleChange}/>
+                            </InputWrapper>
+                            <InputWrapper>
+                                <UserText>Password</UserText>
+                                <FancyInput type="text"
+                                            defaultValue={user.password}
+                                            name="password"
+                                            style={{textAlign: "center"}}
+                                            onChange={handleChange}/>
+                            </InputWrapper>
                         </InfoDetailSection>
                     </InfoDetailWrapper>
-                    <button onClick={() => console.log("edited")} type="submit">Done</button>
-                </div>
-            </form>
+            </FancyForm>
             <ButtonSection>
-                <button>Do somethong</button>
-                <button>Do else</button>
-                <button>Return</button>
+                <FancyButton type="button" onClick={() => stopEdit()}>STOP EDIT</FancyButton>
+                <FancyButton onClick={deleteUser}>Delete User</FancyButton>
+                <FancyButton onClick={() => console.log("edited")} type="submit">Done</FancyButton>
             </ButtonSection>
         </DetailCardWrapper>
     );

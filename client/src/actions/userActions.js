@@ -1,5 +1,6 @@
 import {userTypes} from "./userTypes";
 import axios from "axios";
+import {authHeader} from "../shared/authHeader";
 
 
 function getFirstName(name) {
@@ -18,8 +19,8 @@ function getRegisterUrl() {
     return "http://localhost:8080/api/users/register"
 }
 
-function getLoginrUrl() {
-    return "http://localhost:8080/api/users/login"
+function getLoginUrl() {
+    return "http://localhost:8080/api/users/authenticate"
 }
 
 function getUserUrl(name) {
@@ -72,21 +73,25 @@ function loginUserFailed(e) {
 
 export const fetchUsers = () => async dispatch => {
     try {
-        const response = await axios.get(getUsersUrl());
-        console.log(response);
+        const response = await axios.get(getUsersUrl(),{
+            headers:authHeader()
+        });
+        console.log("Response: ",response);
         return await dispatch({
             type: userTypes.FETCH_USERS,
             payload: response.data
         });
     } catch (e) {
-        console.log(e);
+        console.log("Error",e);
         dispatch(fetchUsersFailed(e));
     }
 };
 
 export const fetchUser = (name) => async dispatch => {
     try {
-        const response = await axios.get(getUserUrl(name));
+        const response = await axios.get(getUserUrl(name),{
+            headers:authHeader()
+        });
         console.log(response);
         return await dispatch({
             type: userTypes.FETCH_USER,
@@ -114,10 +119,11 @@ export const registerUser = (user) => async dispatch => {
     }
 };
 
-export const loginUser = (user) => async dispatch => {
+export const loginUser = (userName, password) => async dispatch => {
     try {
-        console.log("before post", user);
-        const response = await axios.post(getLoginrUrl(), user);
+        const response = await axios.post(getLoginUrl(),JSON.stringify({userName,password}),{
+            headers: {"Content-Type" : "application/json"},
+        });
         console.log("Response", response);
         return await dispatch({
             type: userTypes.LOGIN,
@@ -149,7 +155,9 @@ export const updateUser = (user) => async dispatch => {
     try {
         console.log("before post", user);
         const urlToPUT = getUsersUrl() + `/${user.uid}`;
-        const response = await axios.put(urlToPUT, user);
+        const response = await axios.put(urlToPUT, user,{
+            headers:authHeader()
+        });
         console.log("Response", response);
         return await dispatch({
             type: userTypes.UPDATE_USER,
@@ -164,7 +172,9 @@ export const updateUser = (user) => async dispatch => {
 export const deleteUser = (user) => async dispatch => {
     try {
         const urlToDelete = getUsersUrl() + `/${user.uid}`;
-        const response = await axios.delete(urlToDelete);
+        const response = await axios.delete(urlToDelete,{
+            headers:authHeader()
+        });
 
         return await dispatch({
             type: userTypes.DELETE_USER,
