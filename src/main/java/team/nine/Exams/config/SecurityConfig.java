@@ -3,7 +3,6 @@ package team.nine.Exams.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +16,7 @@ import team.nine.Exams.filter.JwtRequestFilter;
 import team.nine.Exams.repositories.UserRepository;
 import team.nine.Exams.services.MyUserDetailService;
 
-@Configuration
+//@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -36,10 +35,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
+
+        http
+                .cors()
+                .and()
+                .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/users/authenticate","api/users")
+                .antMatchers(
+                        "/api/users/authenticate",
+                        "/api/users/register"
+                        )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
