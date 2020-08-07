@@ -2,7 +2,7 @@
 
 <img src="Untitled Diagram.jpg">
 
-*<h3 style="font-weight:bold;">Main page / Home page</h3>*
+*<h3 style="font-weight:bold;">Main page / Navigation page</h3>*
 <p>The main page should be the login page. In case the user does not have an account he'll have the option to register.</p>
 
 *<h3 style="font-weight:bold;">Dashboard</h3>*
