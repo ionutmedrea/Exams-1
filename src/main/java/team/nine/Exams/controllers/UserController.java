@@ -107,11 +107,6 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid username or password",exception);
         }
 
-
-//        final UserDetails userDetails = myUserDetailService.loadUserByUsername(authRequest.getUserName());
-//        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-//
-//        return ResponseEntity.ok(new AuthResponse(jwt));
         String token = jwtUtil.generateToken(authRequest.getUserName());
         userService.assignToken(authRequest.getUserName(), token);
         return userService.findByToken(token);
